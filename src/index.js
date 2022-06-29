@@ -12,6 +12,7 @@ module.exports = function toReadable (number) {
   var th3;
   var td1;
   n=number;
+ 
   if (n>=1000000){
     console.log(Math.floor(n/1000000)/1000);
     if ((Math.floor(n/1000000))>1000){
@@ -94,9 +95,19 @@ module.exports = function toReadable (number) {
       td1=teens[(n%100)-10];
     }
     else{
-      td1=tens[Math.floor((n%100)/10)]+" "+ones[((n%100))%10];
+        if (((n%100))%10==0){
+            td1=tens[Math.floor((n%100)/10)];
+        }
+        else{
+            td1=tens[Math.floor((n%100)/10)]+" "+ones[((n%100))%10];
+        }
     }
-	  res=ones[Math.floor(n/100)]+" hundred "+td1;
+      if (td1==''){
+        res=ones[Math.floor(n/100)]+" hundred";
+      }
+      else{
+        res=ones[Math.floor(n/100)]+" hundred "+td1;
+      }
   }
   else if (n<10){
 	  res=ones[n]
@@ -105,7 +116,15 @@ module.exports = function toReadable (number) {
 	  res=teens[n-10];
   }
   else{
-	  res=tens[Math.floor(n/10)]+" "+ones[n%10];
+      if (ones[n%10]==0){
+        res=tens[Math.floor(n/10)];
+      }
+      else{
+        res=tens[Math.floor(n/10)]+" "+ones[n%10];
+      }
+  }
+  if (n==0){
+    res='zero';
   }
   console.log(res);
   return (res);
